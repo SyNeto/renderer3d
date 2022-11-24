@@ -9,7 +9,7 @@ SDL_Renderer* renderer = NULL;
 bool initialize_window(void)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-		fprintf(stderr, "Error initializint SDL.\n");
+		fprintf(stderr, "Error initializing SDL.\n");
 		return false;
 	}
 	window = SDL_CreateWindow(NULL, SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_BORDERLESS);
@@ -30,7 +30,19 @@ void setup(void) {
 }
 
 void process_input(void) {
-	// process_input function
+	SDL_Event event;
+	SDL_PollEvent(&event);
+	
+	switch (event.type) {
+	case SDL_QUIT:
+		is_running = false;
+		break;
+	case SDL_KEYDOWN:
+		if (event.key.keysym.sym == SDLK_ESCAPE) {
+			is_running = false;
+			break;
+		}
+	}
 }
 
 void update(void) {
